@@ -1,0 +1,128 @@
+// declare variables for color codes and font faces
+$orange: #FF7F00;
+$blue: #0000FF;
+$purple: #80007E;
+$green:#D8DA3D;
+$primary-font:Georgia, serif;
+$secondary-font:Arial, sans-serif;
+//  setting background, padding and margin to 0 for the whole html document 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    background-color: $green;
+}
+// outer container section 
+.container{
+    color: $purple;
+    font-family: $primary-font;
+    padding: 10px;
+    display: flex;
+}
+// left aside section  
+.left{
+    width: 245px;
+}
+// languages div 
+%lang{
+    background: white;
+    margin: 0px 0px 9px 0px;
+    padding: 7px 5px;
+    font: 17px $primary-font;
+}
+// lang div with orange right-border
+.lang-orange{
+    @extend %lang;
+    border-right: 19px solid $orange;
+    &:first-of-type{
+        margin: 30px 0px 9px 0px;
+    }
+}
+// lang div with blue right-border
+.lang-blue{
+    @extend %lang;
+    border-right: 19px solid $blue;
+}
+
+/* right main section  */
+.right{
+    padding: 0px 0px 0px 50px;
+    width: 100%;
+}
+/* heading of the web page */
+.heading{
+    font: 22px $secondary-font;
+    margin: 12px 0px 30px 0px;
+}
+/* dotted border above the footer  */
+.content{
+    border-bottom: 1px dotted $purple;
+    p{
+        /* top and bottom margin to all the paragraphs inside the content div */
+        margin: 22px 0px;
+        &:last-child{
+            // increased bottom margin for the last paragraph
+            margin: 22px 0px 50px 0px;
+        }
+    }
+}
+// mixin for the boxes above the footer
+@mixin box($style, $border-style, $border-color, $justify)
+{
+    margin: 20px 0px;
+    padding: 5px;
+    font-size: 20px;
+    display: flex;
+    color: black;
+    border: 2px $border-style $border-color;
+    justify-content:$justify;
+    @if($style == "bold")
+    {
+        font-weight: 600;
+    }
+    @else{
+        font-style: $style;
+    }
+}
+// 1st box css
+.first-box{
+    @include box(none, dashed, black, left);
+}
+// 2nd box css
+.second-box{
+    @include box(italic, dashed, $orange, right);
+}
+// 3rd box css
+.third-box{
+    @include box(bold, dotted, $blue, center);
+}
+/* footer */
+.footer{
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0px;
+}
+
+// Bounce animation on hover
+// keyframes
+@keyframes bounce {
+	0%, 60%, 100% {
+		transform: translateY(0)
+	}
+	30% {
+		transform: translateY(-20px)
+	}
+	80% {
+		transform: translateY(-10px)
+	}
+}
+// applying bounce animation on hovering the boxes
+.boxes {
+    .box{
+        cursor: pointer;    
+        &:hover{
+            animation: bounce 1s ease-in-out 0s 1 normal both running;
+        }
+    }
+}
